@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Incidencias 311</string>
+    <string name="txtDetalleIncidencia">Detalle de la incidencia</string>
 </resources>
