@@ -1,4 +1,48 @@
 <resources>
     <string name="app_name">Incidencias 311</string>
     <string name="txtDetalleIncidencia">Detalle de la incidencia</string>
+
+    <string-array name="categoria">
+        <item>Categoria</item>
+        <item>Puente</item>
+        <item>Carretera</item>
+        <item>Servicio público</item>
+        <item>Servicio privado</item>
+    </string-array>
+
+    <string-array name="empresa">
+        <item>Empresa</item>
+        <item>ICE</item>
+        <item>Municipalidad</item>
+        <item>Servicio de internet</item>
+        <item>AyA</item>
+    </string-array>
+
+    <string-array name="provincia">
+        <item>Provincia</item>
+        <item>San Jose</item>
+        <item>Alajuela</item>
+        <item>Cartago</item>
+        <item>Heredia</item>
+        <item>Puntarenas</item>
+        <item>Guanacaste</item>
+        <item>Limón</item>
+    </string-array>
+
+    <string-array name="canton">
+        <item>Cantón</item>
+        <item>Cantón1</item>
+        <item>Cantón2</item>
+        <item>Cantón3</item>
+        <item>Cantón4</item>
+    </string-array>
+
+    <string-array name="distrito">
+        <item>Distrito</item>
+        <item>Distrito1</item>
+        <item>Distrito2</item>
+        <item>Distrito3</item>
+        <item>Distrito4</item>
+    </string-array>
+
 </resources>
