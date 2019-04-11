@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MenuPrincipal"></activity>
-        <activity android:name=".RegistroIncidencia" />
+        <activity
+            android:name=".MenuPrincipal"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".Registro" />
         <activity android:name=".MainActivity">
             <intent-filter>
