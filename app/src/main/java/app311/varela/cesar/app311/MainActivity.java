@@ -18,13 +18,13 @@ public class MainActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),MenuPrincipal.class);
+                Intent intent = new Intent(v.getContext(),Menu.class);
                 startActivityForResult(intent,0);
             }
         });
 
 
-        findViewById(R.id.registrarseBtn).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btnRegistrarse).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, Registro.class));

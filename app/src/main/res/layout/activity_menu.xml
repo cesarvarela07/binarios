@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".MenuPrincipal">
+    tools:context=".Menu">
 
     <ImageButton
-        android:id="@+id/ibEditarPerfil"
+        android:id="@+id/btnEditar"
         android:layout_width="130dp"
         android:layout_height="160dp"
         android:layout_marginStart="8dp"
@@ -27,7 +28,26 @@
         app:srcCompat="@drawable/file" />
 
     <ImageButton
-        android:id="@+id/ibGraficos"
+        android:id="@+id/btnIncidencia"
+        android:layout_width="130dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.766"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.339"
+        app:srcCompat="@drawable/new_page" />
+
+    <ImageButton
+        android:id="@+id/btnGrafico"
         android:layout_width="131dp"
         android:layout_height="149dp"
         android:layout_marginStart="8dp"
@@ -46,7 +66,7 @@
         app:srcCompat="@drawable/graph" />
 
     <ImageButton
-        android:id="@+id/ibHistoricoIncidencias"
+        android:id="@+id/btnHistorico"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -64,25 +84,6 @@
         app:layout_constraintVertical_bias="0.87"
         app:srcCompat="@drawable/clipboard" />
 
-    <ImageButton
-        android:id="@+id/ibRegistrarIncidencia"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.835"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.329"
-        app:srcCompat="@drawable/new_page" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="131dp"
@@ -94,8 +95,8 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:text="Editar perfil"
-        android:textSize="20dp"
         android:textAlignment="center"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.092"

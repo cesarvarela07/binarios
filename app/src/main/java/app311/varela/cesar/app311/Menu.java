@@ -6,32 +6,33 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-public class MenuPrincipal extends AppCompatActivity {
+public class Menu extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu_principal);
+        setContentView(R.layout.activity_menu);
 
         //ImageButton para Registrar Incidencia
-        ImageButton ibRegIncidenia = (ImageButton) findViewById(R.id.ibRegistrarIncidencia);
-        ibRegIncidenia.setOnClickListener(new View.OnClickListener() {
+        ImageButton btnIncidencia = (ImageButton) findViewById(R.id.btnIncidencia);
+        btnIncidencia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),RegistroIncidencia.class);
+                Intent intent = new Intent(v.getContext(),RegistrarIncidencia.class);
                 startActivityForResult(intent,0);
-
             }
         });
 
         //ImageButton para Editar perfil
-        ImageButton ibEditarPerfil = (ImageButton) findViewById(R.id.ibEditarPerfil);
-        ibEditarPerfil.setOnClickListener(new View.OnClickListener() {
+        ImageButton btnEditar = (ImageButton) findViewById(R.id.btnEditar);
+        btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(),Registro.class);
                 startActivityForResult(intent,0);
             }
         });
+
+
     }
 }

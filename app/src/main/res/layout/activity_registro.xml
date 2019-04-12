@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="0dp">
+    tools:context=".Registro">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
