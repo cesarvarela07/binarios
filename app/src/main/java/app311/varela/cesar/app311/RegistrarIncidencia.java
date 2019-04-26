@@ -1,67 +1,21 @@
 package app311.varela.cesar.app311;
 
-import android.content.ComponentName;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.graphics.Bitmap;
-import android.graphics.Matrix;
-import android.net.Uri;
-import android.os.Parcelable;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class RegistrarIncidencia extends AppCompatActivity {
-    static final int REQUEST_IMAGE_CAPTURE = 1;
     ArrayList<String> provincia =new ArrayList<>();
     ArrayList<String> canton =new ArrayList<>();
     ArrayList<String> distrito =new ArrayList<>();
-    ImageView addPhoto = (ImageView) findViewById(R.id.imgPhotoUser);
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-
-            if (data.getExtras()!= null) {
-                Bundle extras = data.getExtras();
-                Bitmap imageBitmap = (Bitmap) extras.get("data");
-                addPhoto.setImageBitmap(imageBitmap);
-            } else {
-                Uri selectedimg = data.getData();
-                try {
-                    Bitmap mBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedimg);
-                    int width = mBitmap.getWidth();
-                    int height = mBitmap.getHeight();
-                    float scaleWidth = ((float) 300) / width;
-                    float scaleHeight = ((float) 400) / height;
-                    // create a matrix for the manipulation
-                    Matrix matrix = new Matrix();
-                    // resize the bit map
-                    matrix.postScale(scaleWidth, scaleHeight);
-                    // recreate the new Bitmap
-                    Bitmap bit = Bitmap.createBitmap(mBitmap, 0, 0, width, height, matrix, false);
-                    addPhoto.setImageBitmap(bit);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-
+    ArrayList<String> empresa =new ArrayList<>();
+    ArrayList<String> categoria =new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +26,8 @@ public class RegistrarIncidencia extends AppCompatActivity {
         Spinner prov= (Spinner) findViewById(R.id.Provincia);
         Spinner cant= (Spinner) findViewById(R.id.Canton);
         Spinner dist= (Spinner) findViewById(R.id.Distrito);
+        Spinner empr= (Spinner) findViewById(R.id.Empresa);
+        Spinner cate= (Spinner) findViewById(R.id.Categoria);
 
         //FILL DATA
         fillData();
@@ -127,6 +83,40 @@ public class RegistrarIncidencia extends AppCompatActivity {
 
             }
         });
+
+        //ADAPTR
+        ArrayAdapter<String> emp=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,empresa);
+        empr.setAdapter(emp);
+
+        empr.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(RegistrarIncidencia.this, empresa.get(i), Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        //ADAPTR
+        ArrayAdapter<String> cat=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,categoria);
+        cate.setAdapter(cat);
+
+        cate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(RegistrarIncidencia.this, categoria.get(i), Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     //FILL DATA
@@ -160,9 +150,103 @@ public class RegistrarIncidencia extends AppCompatActivity {
         distrito.add("Desamparados");
         distrito.add("Escazú");
 
+        empresa.clear();
+
+        //FILL
+        empresa.add("AyA");
+        empresa.add("ICE");
+        empresa.add("Municipalidad");
+        empresa.add("Cablera");
+
+
+
+        categoria.clear();
+
+        //FILL
+        categoria.add("Puentes");
+        categoria.add("Carreteras");
+        categoria.add("Servicios públicos");
+        categoria.add("Servicio privado");
+
     }
-
-
-
-
 }
+
+//        // Here, we are making a folder named picFolder to store
+//        // pics taken by the camera using this application.
+//        final String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/picFolder/";
+//        File newdir = new File(dir);
+//        newdir.mkdirs();
+//
+//        Button capture = (Button) findViewById(R.id.btnCapture);
+//        capture.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//
+//                // Here, the counter will be incremented each time, and the
+//                // picture taken by camera will be stored as 1.jpg,2.jpg
+//                // and likewise.
+//                count++;
+//                String file = dir+count+".jpg";
+//                File newfile = new File(file);
+//                try {
+//                    newfile.createNewFile();
+//                }
+//                catch (IOException e)
+//                {
+//                }
+//
+//                Uri outputFileUri = Uri.fromFile(newfile);
+//
+//                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+//
+//                startActivityForResult(cameraIntent, TAKE_PHOTO_CODE);
+//            }
+//        });
+//    }
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == TAKE_PHOTO_CODE && resultCode == RESULT_OK) {
+//            Log.d("CameraDemo", "Pic saved");
+//        }
+//    }
+
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        try {
+//
+//            super.onActivityResult(requestCode, resultCode, data);
+//            if (requestCode != 0 && data != null) {
+//
+//                if (data.getExtras()!= null) {
+//                    Bundle extras = data.getExtras();
+//                    Bitmap imageBitmap = (Bitmap) extras.get("data");
+//                    addPhoto.setImageBitmap(imageBitmap);
+//                } else {
+//                    Uri selectedimg = data.getData();
+//                    try {
+//                        Bitmap mBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedimg);
+//                        int width = mBitmap.getWidth();
+//                        int height = mBitmap.getHeight();
+//                        float scaleWidth = ((float) 300) / width;
+//                        float scaleHeight = ((float) 400) / height;
+//                        // create a matrix for the manipulation
+//                        Matrix matrix = new Matrix();
+//                        // resize the bit map
+//                        matrix.postScale(scaleWidth, scaleHeight);
+//                        // recreate the new Bitmap
+//                        Bitmap bit = Bitmap.createBitmap(mBitmap, 0, 0, width, height, matrix, false);
+//                        addPhoto.setImageBitmap(bit);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//
+//        }catch(Exception e){
+//
+//        }
+//    }

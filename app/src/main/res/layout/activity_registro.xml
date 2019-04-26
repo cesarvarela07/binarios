@@ -28,7 +28,7 @@
 
         <EditText
             android:id="@+id/cedulaTxt"
-            android:layout_width="148dp"
+            android:layout_width="454dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
