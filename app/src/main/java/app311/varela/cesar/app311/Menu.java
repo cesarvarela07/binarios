@@ -29,7 +29,9 @@ public class Menu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(),Registro.class);
+                intent.putExtra("MODE",1);
                 startActivityForResult(intent,0);
+
             }
         });
 
