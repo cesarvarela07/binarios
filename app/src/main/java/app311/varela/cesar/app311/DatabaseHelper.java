@@ -47,6 +47,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public boolean updateData( ArrayList<String> listaParametros,ArrayList<String> listaColumnas,String tableName,String id,String Key)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        for (int i = 0; i < listaColumnas.size(); i++)
+        {
+            contentValues.put(listaColumnas.get(i),listaParametros.get(i));
+        }
+        long result = db.update(tableName,contentValues,Key + " = " + id,null);//.insert(tableName, null,contentValues);
+        if (result == -1)
+            return false;
+        else
+            return true;
+    }
+
     public boolean addData( ArrayList<String> listaParametros,ArrayList<String> listaColumnas,String tableName)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -62,11 +77,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    public ArrayList<String> getValues(String table, String cedula, ArrayList<String> listaCampos) {
+    public ArrayList<String> existeCorreo(String table, String key, String correo,String whereParameter, ArrayList<String> listaCampos) {
         ArrayList<String> values = new ArrayList<String>();
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + table, null);
+        Cursor cursor = db.rawQuery("SELECT CASE WHEN COUNT(0) > 0 THEN 1 ELSE 0 END FROM " + table + " WHERE key = " + whereParameter+ " AND CORREO = " +correo , null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                for (int i = 0; i < listaCampos.size(); i++)
+                    values.add(cursor.getString(cursor.getColumnIndex(listaCampos.get(i).toString())));
+
+            }while(cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return values;
+    }
+
+    public ArrayList<String> getValues(String table, String key,String whereParameter, ArrayList<String> listaCampos) {
+        ArrayList<String> values = new ArrayList<String>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + table + " WHERE key = " + whereParameter, null);
 
         if(cursor.moveToFirst()) {
             do {
