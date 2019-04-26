@@ -24,10 +24,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        findViewById(R.id.btnRegistrarse).setOnClickListener(new View.OnClickListener() {
+        Button btnRegistro = (Button)findViewById(R.id.btnRegistrarse);
+        btnRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, Registro.class));
+                Intent intent = new Intent(v.getContext(),Registro.class);
+                intent.putExtra("MODE",0);
+                startActivityForResult(intent,0);
+
             }
         });
     }
