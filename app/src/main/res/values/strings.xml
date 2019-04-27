@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Incidencias 311</string>
+    <string name="pause">Pause Location Updates</string>
+    <string name="resume">Resume Location Updates</string>
     <string name="txtDetalleIncidencia">Detalle de la incidencia</string>
 
     <string-array name="categoria">
@@ -17,7 +19,6 @@
         <item>Servicio de internet</item>
         <item>AyA</item>
     </string-array>
-
 
 
     <string-array name="provincia">
@@ -45,6 +46,9 @@
         <item>Distrito2</item>
         <item>Distrito3</item>
         <item>Distrito4</item>
+
     </string-array>
+
+
 
 </resources>

@@ -173,8 +173,6 @@
             android:layout_marginRight="8dp"
             android:text="Dirección" />
 
-
-
         <EditText
             android:id="@+id/direccionTxt"
             android:layout_width="wrap_content"
