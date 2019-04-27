@@ -1,12 +1,16 @@
 package app311.varela.cesar.app311;
 
+import android.graphics.Bitmap;
 import android.location.LocationManager;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +34,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.provider.MediaStore;
 
 
 
@@ -41,6 +48,9 @@ public class RegistrarIncidencia extends AppCompatActivity {
     ArrayList<String> distrito =new ArrayList<>();
     ArrayList<String> empresa =new ArrayList<>();
     ArrayList<String> categoria =new ArrayList<>();
+    ImageView img;
+    ImageButton btn;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
 
     LocationManager locationManager;
     double longitudeBest, latitudeBest;
@@ -49,6 +59,7 @@ public class RegistrarIncidencia extends AppCompatActivity {
     TextView longitudeValueBest, latitudeValueBest;
     TextView longitudeValueGPS, latitudeValueGPS;
     TextView longitudeValueNetwork, latitudeValueNetwork;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +70,17 @@ public class RegistrarIncidencia extends AppCompatActivity {
 
         longitudeValueGPS = (TextView) findViewById(R.id.longitudeValueGPS);
         latitudeValueGPS = (TextView) findViewById(R.id.latitudeValueGPS);
+
+        btn=(ImageButton) findViewById(R.id.btnCapture);
+        img=(ImageView) findViewById(R.id.imgPost);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dispatchTakePictureIntent();
+            }
+        });
+
 
 
 
@@ -237,6 +259,22 @@ public class RegistrarIncidencia extends AppCompatActivity {
         }
     };
 
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            img.setImageBitmap(imageBitmap);
+        }
+    }
 
     //FILL DATA
     private void fillData()
