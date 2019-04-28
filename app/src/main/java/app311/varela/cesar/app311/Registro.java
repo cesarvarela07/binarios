@@ -48,6 +48,7 @@ public class Registro extends AppCompatActivity {
         listaColumnas.add(ConfiguracionSQLite.TB_RU_DIRECCION);
 
         Button btnSave = (Button)  findViewById(R.id.btnSave);
+
         txtCedula = (EditText) findViewById(R.id.cedulaTxt);
         txtNombre = (EditText) findViewById(R.id.nombreTxt);
         txtApellido1 = (EditText) findViewById(R.id.apellido1Txt);
@@ -57,12 +58,28 @@ public class Registro extends AppCompatActivity {
         txtPassword = (EditText)findViewById(R.id.passwordTxt);
         txtDireccion = (EditText)findViewById(R.id.direccionTxt);
 
+        //0 = registro primera vez
+        //1 = editar perfil
         if(1 == getIntent().getExtras().getInt("MODE"))
         {
+            btnSave.setText("Guardar Edición");
             listaValores = mDatabaseHelper.getValues(ConfiguracionSQLite.TB_NAME_REGISTRO_USUARIO,"117010413",listaColumnas);
+            txtCedula.setText(listaValores.get(0));
             txtNombre.setText(listaValores.get(1));
+            txtApellido1.setText(listaValores.get(2));
             txtApellido2.setText(listaValores.get(3));
+
+            txtEmail.setText(listaValores.get(7));
+            txtTelefono.setText(listaValores.get(8));
             txtPassword.setText(listaValores.get(9));
+            txtDireccion.setText(listaValores.get(12));
+
+/*            txtPassword.setText(listaValores.get(8));
+            txtPassword.setText(listaValores.get(9));
+            txtPassword.setText(listaValores.get(10));
+            txtPassword.setText(listaValores.get(11));
+            txtPassword.setText(listaValores.get(12));
+*/
 
         }
 
