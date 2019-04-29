@@ -1,5 +1,6 @@
 package app311.varela.cesar.app311;
 
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
 
     DatabaseHelper mDatabaseHelper;
     private EditText txtEmail;
+    private EditText txtPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +28,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 txtEmail = (EditText)findViewById(R.id.emailTxt);
+                txtPassword = (EditText)findViewById(R.id.passwordTxt);
 
-                if("Y".equalsIgnoreCase(mDatabaseHelper.existeCorreo(ConfiguracionSQLite.TB_NAME_REGISTRO_USUARIO,txtEmail.getText().toString())))
+                if("Y".equalsIgnoreCase(mDatabaseHelper.existeCorreo(ConfiguracionSQLite.TB_NAME_REGISTRO_USUARIO,txtEmail.getText().toString(),txtPassword.getText().toString())))
                 {
                     MetodosGlobales.CEDULA_USUARIO_ACTIVO = mDatabaseHelper.obtenerIdCedulaUusario(ConfiguracionSQLite.TB_NAME_REGISTRO_USUARIO,txtEmail.getText().toString());
                     Intent intent = new Intent(v.getContext(),Menu.class);
@@ -35,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    MetodosGlobales.toastMessage(MainActivity.this,"Correo incorrecto");
+                    MetodosGlobales.toastMessage(MainActivity.this,"Datos de usuario incorrecto");
                 }
 
 
@@ -57,4 +60,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }
