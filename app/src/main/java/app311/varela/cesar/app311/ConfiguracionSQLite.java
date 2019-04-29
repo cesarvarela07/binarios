@@ -83,8 +83,20 @@ public final class ConfiguracionSQLite {
       }catch (Exception e){
 
       }
+    }
+
+    public static void dropTable(SQLiteDatabase db)
+    {
+        try {
+
+            db.execSQL("DROP TABLE IF EXISTS "+TB_NAME_REGISTRO_INCIDENCIA);
+
+            db.execSQL("DROP TABLE IF EXISTS "+TB_NAME_REGISTRO_USUARIO);
 
 
+        }catch (Exception e){
+
+        }
     }
 
 }
