@@ -74,7 +74,12 @@ public class Registro extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 cargarListaParametros();
-                addData();
+                if(0 == getIntent().getExtras().getInt("MODE"))
+                    addData();
+                else
+                    updateData();
+
+
             }
         });
 
@@ -118,6 +123,19 @@ public class Registro extends AppCompatActivity {
             MetodosGlobales.toastMessage(this,"Insertado correctamente");
         else
             MetodosGlobales.toastMessage(this,"Error al insertar los datos");
+    }
+
+    public void updateData()
+    {
+
+        String tableName = ConfiguracionSQLite.TB_NAME_REGISTRO_USUARIO;
+        //columnas
+
+        boolean updateData = mDatabaseHelper.updateData(listaParametros,listaColumnas,tableName,MetodosGlobales.CEDULA_USUARIO_ACTIVO,ConfiguracionSQLite.TB_RI_CEDULA);
+        if (updateData)
+            MetodosGlobales.toastMessage(this,"Actualizado correctamente");
+        else
+            MetodosGlobales.toastMessage(this,"Error al actualizar los datos");
     }
 
     public void agregarColumnas()

@@ -43,7 +43,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         {
             contentValues.put(listaColumnas.get(i),listaParametros.get(i));
         }
-        long result = db.update(tableName,contentValues,Key + " = " + id,null);//.insert(tableName, null,contentValues);
+        long result = db.update(tableName,contentValues,Key + " = " + id,null);
         if (result == -1)
             return false;
         else
@@ -65,12 +65,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    public String existeCorreo(String table, String correo) {
+    public String existeCorreo(String table, String correo, String password) {
 
         String indCorreoValido = "";
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT CASE WHEN COUNT(0) > 0 THEN 'Y' ELSE 'N' END AS RESULTADO FROM '" + table +"' WHERE CORREO = '" +correo +"' " , null);
+        Cursor cursor = db.rawQuery("SELECT CASE WHEN COUNT(0) > 0 THEN 'Y' ELSE 'N' END AS RESULTADO FROM '" + table +"' WHERE CORREO = '" +correo +"' AND PASSWORD = '" +password +"' " , null);
 
         if(cursor.moveToFirst()) {
             indCorreoValido = cursor.getString(cursor.getColumnIndex("RESULTADO"));
@@ -117,30 +117,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return values;
     }
 
-/*
-    public ArrayList<String> getValues(String table, String cedula) {
-        ArrayList<String> InfoContactoList = new ArrayList();
-        String selectQuery = "SELECT * FROM " + table + " WHERE CEDULA = " + cedula;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        //if TABLE has rows
-        if (cursor.moveToFirst()) {
-            //Loop through the table rows
-            do {
-                MovieDetailsVO movieDetails = new MovieDetailsVO();
-                movieDetails.setMovieId(cursor.getInt(0));
-                movieDetails.setMovieName(cursor.getString(1));
-                movieDetails.setGenre(cursor.getString(2));
-                movieDetails.setYear(cursor.getInt(3));
-                movieDetails.setRating(cursor.getDouble(4));
-
-                //Add movie details to list
-                movieDetailsList.add(movieDetails);
-            } while (cursor.moveToNext());
-        }
-        db.close();
-        return movieDetailsList;
-    }
-    */
 }
