@@ -25,26 +25,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
         /*Crea las tablas*/
-
         ConfiguracionSQLite.createTable(db);
-
-        /*
-        String createTable= "CREATE TABLE "+TABLE_NAME+
-                " ("+COL_CEDULA+" INTEGER PRIMARY KEY, "+
-                COL_NOMBRE+ " TEXT NOT NULL, "+
-                COL_EMAIL+ " TEXT NOT NULL UNIQUE, "+
-                COL_TELEFONO+ " INTEGER NOT NULL UNIQUE, "+
-                COL_PASSWORD+ " TEXT NOT NULL UNIQUE); ";
-
-        db.execSQL(createTable);
-        */
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+        ConfiguracionSQLite.dropTable(sqLiteDatabase);
+        onCreate(sqLiteDatabase);
     }
 
     public boolean updateData( ArrayList<String> listaParametros,ArrayList<String> listaColumnas,String tableName,String id,String Key)
@@ -77,50 +65,50 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    public ArrayList<String> existeCorreo(String table, String key, String correo,String whereParameter, ArrayList<String> listaCampos) {
-        ArrayList<String> values = new ArrayList<String>();
+    public String existeCorreo(String table, String correo) {
+
+        String indCorreoValido = "";
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT CASE WHEN COUNT(0) > 0 THEN 1 ELSE 0 END FROM " + table + " WHERE key = " + whereParameter+ " AND CORREO = " +correo , null);
+        Cursor cursor = db.rawQuery("SELECT CASE WHEN COUNT(0) > 0 THEN 'Y' ELSE 'N' END AS RESULTADO FROM '" + table +"' WHERE CORREO = '" +correo +"' " , null);
 
         if(cursor.moveToFirst()) {
-            do {
-                for (int i = 0; i < listaCampos.size(); i++)
-                    values.add(cursor.getString(cursor.getColumnIndex(listaCampos.get(i).toString())));
-
-            }while(cursor.moveToNext());
+            indCorreoValido = cursor.getString(cursor.getColumnIndex("RESULTADO"));
         }
 
         cursor.close();
         db.close();
-        return values;
+        return indCorreoValido;
+    }
+
+    public String obtenerIdCedulaUusario(String table, String correo) {
+
+        String cedulaUsuario = "";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT CEDULA FROM '" + table +"' WHERE CORREO = '" +correo +"' " , null);
+
+        if(cursor.moveToFirst()) {
+
+            cedulaUsuario = cursor.getString(cursor.getColumnIndex("CEDULA"));
+
+        }
+
+        cursor.close();
+        db.close();
+        return cedulaUsuario;
     }
 
     public ArrayList<String> getValues(String table, String key,String whereParameter, ArrayList<String> listaCampos) {
         ArrayList<String> values = new ArrayList<String>();
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + table + " WHERE key = " + whereParameter, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + table + " WHERE " + key + " = " + whereParameter, null);
 
         if(cursor.moveToFirst()) {
             do {
                 for (int i = 0; i < listaCampos.size(); i++)
                     values.add(cursor.getString(cursor.getColumnIndex(listaCampos.get(i).toString())));
-/*              values.add(cursor.getString(cursor.getColumnIndex(listaCampos.get(1).toString())));
-                values.add(cursor.getString(cursor.getColumnIndex(listaCampos.get(2).toString())));
-                values.add(cursor.getString(cursor.getColumnIndex(listaCampos.get(3).toString())));
-                values.add(cursor.getString(cursor.getColumnIndex(listaCampos.get(4).toString())));
-
-                values.add(cursor.getString(cursor.getColumnIndex(listaCampos.get(5).toString())));
-                values.add(cursor.getString(cursor.getColumnIndex(listaCampos.get(6).toString())));
-                values.add(cursor.getString(cursor.getColumnIndex(listaCampos.get(7).toString())));
-                values.add(cursor.getString(cursor.getColumnIndex(listaCampos.get(8).toString())));
-                values.add(cursor.getString(cursor.getColumnIndex(listaCampos.get(9).toString())));
-
-                values.add(cursor.getString(cursor.getColumnIndex(listaCampos.get(10).toString())));
-                values.add(cursor.getString(cursor.getColumnIndex(listaCampos.get(11).toString())));
-                values.add(cursor.getString(cursor.getColumnIndex(listaCampos.get(12).toString())));*/
-
             }while(cursor.moveToNext());
         }
 
