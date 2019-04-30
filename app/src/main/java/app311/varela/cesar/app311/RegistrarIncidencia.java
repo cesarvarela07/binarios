@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -32,6 +33,11 @@ import java.util.ArrayList;
 public class RegistrarIncidencia extends AppCompatActivity {
     ArrayList<String> empresa =new ArrayList<>();
     ArrayList<String> categoria =new ArrayList<>();
+
+    DatabaseHelper mDatabaseHelper;
+    ArrayList<String> listaParametros = new ArrayList<String>();
+    ArrayList<String> listaColumnas = new ArrayList<String>();
+
     ImageView img;
     ImageButton btn;
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -41,11 +47,20 @@ public class RegistrarIncidencia extends AppCompatActivity {
     double longitudeGPS, latitudeGPS;
     TextView longitudeValueGPS, latitudeValueGPS;
 
+    private Spinner txtEmpresa;
+    private Spinner txtCategoria;
+    private TextView txtDireccion;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrar_incidencia);
+
+        mDatabaseHelper = new DatabaseHelper(this);
+        agregarColumnas();
+        obtenerDatosDeActivity();
+
         locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 
 
@@ -59,6 +74,16 @@ public class RegistrarIncidencia extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dispatchTakePictureIntent();
+            }
+        });
+
+        Button btnIncide = (Button) findViewById(R.id.btnIncide);
+
+        btnIncide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cargarListaParametros();
+                addData();
             }
         });
 
@@ -199,6 +224,75 @@ public class RegistrarIncidencia extends AppCompatActivity {
             img.setImageBitmap(imageBitmap);
         }
     }
+
+
+
+    public void addData()
+    {
+        String tableName = ConfiguracionSQLite.TB_NAME_REGISTRO_INCIDENCIA;
+
+        //columnas
+        boolean insertData = mDatabaseHelper.addData(listaParametros,listaColumnas,tableName);
+        if (insertData)
+            MetodosGlobales.toastMessage(this,"Insertado correctamente");
+        else
+            MetodosGlobales.toastMessage(this,"Error al insertar los datos");
+
+
+    }
+/*
+    public void updateData()
+    {
+        String tableName = ConfiguracionSQLite.TB_NAME_REGISTRO_USUARIO;
+        //columnas
+        boolean updateData = mDatabaseHelper.updateData(listaParametros,listaColumnas,tableName,MetodosGlobales.CEDULA_USUARIO_ACTIVO,ConfiguracionSQLite.TB_RI_CEDULA);
+        if (updateData)
+            MetodosGlobales.toastMessage(this,"Actualizado correctamente");
+        else
+            MetodosGlobales.toastMessage(this,"Error al actualizar los datos");
+    }
+*/
+    public void agregarColumnas()
+    {
+        listaColumnas.add(ConfiguracionSQLite.TB_RI_CEDULA);
+        listaColumnas.add(ConfiguracionSQLite.TB_RI_CATEGORIA);
+        listaColumnas.add(ConfiguracionSQLite.TB_RI_EMPRESA);
+        listaColumnas.add(ConfiguracionSQLite.TB_RI_DIRECCION);
+        listaColumnas.add(ConfiguracionSQLite.TB_RI_ESTADO);
+    }
+
+    public void obtenerDatosDeActivity()
+    {
+        txtEmpresa = (Spinner) findViewById(R.id.Empresa);
+        txtCategoria = (Spinner) findViewById(R.id.Categoria);
+        txtDireccion = (EditText)findViewById(R.id.lblDireccion);
+    }
+/*
+    public void obtenerDatosDeBD()
+    {
+        listaValores = mDatabaseHelper.getValues(ConfiguracionSQLite.TB_NAME_REGISTRO_USUARIO,"CEDULA",MetodosGlobales.CEDULA_USUARIO_ACTIVO,listaColumnas);
+        txtCedula.setText(listaValores.get(0));
+        txtNombre.setText(listaValores.get(1));
+        txtApellido1.setText(listaValores.get(2));
+        txtApellido2.setText(listaValores.get(3));
+
+        txtEmail.setText(listaValores.get(7));
+        txtTelefono.setText(listaValores.get(8));
+        txtPassword.setText(listaValores.get(9));
+        txtDireccion.setText(listaValores.get(12));
+
+    }
+    */
+
+    public void cargarListaParametros()
+    {
+        listaParametros.add(MetodosGlobales.CEDULA_USUARIO_ACTIVO);
+        listaParametros.add(txtEmpresa.getSelectedItem().toString());
+        listaParametros.add(txtCategoria.getSelectedItem().toString());
+        listaParametros.add(txtDireccion.getText().toString());
+        listaParametros.add("I");
+    }
+
 
     //FILL DATA
     private void fillData()

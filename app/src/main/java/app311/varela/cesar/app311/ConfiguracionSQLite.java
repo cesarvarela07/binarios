@@ -44,11 +44,7 @@ public final class ConfiguracionSQLite {
     public static final String TB_RI_CEDULA                 = "CEDULA";
     public static final String TB_RI_CATEGORIA              = "CATEGORIA";
     public static final String TB_RI_EMPRESA                = "EMPRESA";
-    public static final String TB_RI_PROVINCIA              = "PROVINCIA";
-    public static final String TB_RI_CANTON                 = "CANTON";
-    public static final String TB_RI_DISTRITO               = "DISTRITO";
     public static final String TB_RI_DIRECCION              = "DIRECCION";
-    public static final String TB_RI_DETALLE                = "ESTADO";
     public static final String TB_RI_ESTADO                 = "ESTADO";
     //public static final String TB_RI_GPS                  = "PASSWORD";
     //public static final String TB_RI_IMAGEN               = "COD_ACTIVACION";
@@ -58,11 +54,7 @@ public final class ConfiguracionSQLite {
                                                                 TB_RI_CEDULA            + " INTEGER NOT NULL , "+
                                                                 TB_RI_CATEGORIA         + " TEXT NOT NULL , "+
                                                                 TB_RI_EMPRESA           + " TEXT NOT NULL , "+
-                                                                TB_RI_PROVINCIA         + " TEXT NOT NULL ," +
-                                                                TB_RI_CANTON            + " TEXT NOT NULL ," +
-                                                                TB_RI_DISTRITO          + " TEXT NOT NULL ," +
                                                                 TB_RI_DIRECCION         + " TEXT NOT NULL UNIQUE, " +
-                                                                TB_RI_DETALLE           + " TEXT NOT NULL UNIQUE, " +
                                                                 TB_RI_ESTADO            + " TEXT NOT NULL " +
                                                             "); ";
     /*------------------Datos para guardar el registro de cada incidencia*/

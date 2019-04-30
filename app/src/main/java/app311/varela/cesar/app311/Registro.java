@@ -78,8 +78,6 @@ public class Registro extends AppCompatActivity {
                     addData();
                 else
                     updateData();
-
-
             }
         });
 
@@ -100,9 +98,7 @@ public class Registro extends AppCompatActivity {
                     spCanton.setAdapter(new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_item,distritosPU));
                 if(i == 6)
                     spCanton.setAdapter(new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_item,distritosLI));
-
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
@@ -114,23 +110,28 @@ public class Registro extends AppCompatActivity {
 
     public void addData()
     {
-
         String tableName = ConfiguracionSQLite.TB_NAME_REGISTRO_USUARIO;
-        //columnas
 
-        boolean insertData = mDatabaseHelper.addData(listaParametros,listaColumnas,tableName);
-        if (insertData)
-            MetodosGlobales.toastMessage(this,"Insertado correctamente");
-        else
-            MetodosGlobales.toastMessage(this,"Error al insertar los datos");
+        if(Validador.email(listaParametros.get(7)))
+        {
+            //columnas
+            boolean insertData = mDatabaseHelper.addData(listaParametros,listaColumnas,tableName);
+            if (insertData)
+                MetodosGlobales.toastMessage(this,"Insertado correctamente");
+            else
+                MetodosGlobales.toastMessage(this,"Error al insertar los datos");
+        }else
+        {
+            MetodosGlobales.toastMessage(this,"Formato de correo incorrecto");
+        }
+
+
     }
 
     public void updateData()
     {
-
         String tableName = ConfiguracionSQLite.TB_NAME_REGISTRO_USUARIO;
         //columnas
-
         boolean updateData = mDatabaseHelper.updateData(listaParametros,listaColumnas,tableName,MetodosGlobales.CEDULA_USUARIO_ACTIVO,ConfiguracionSQLite.TB_RI_CEDULA);
         if (updateData)
             MetodosGlobales.toastMessage(this,"Actualizado correctamente");
@@ -183,12 +184,6 @@ public class Registro extends AppCompatActivity {
         txtPassword.setText(listaValores.get(9));
         txtDireccion.setText(listaValores.get(12));
 
-/*            txtPassword.setText(listaValores.get(8));
-            txtPassword.setText(listaValores.get(9));
-            txtPassword.setText(listaValores.get(10));
-            txtPassword.setText(listaValores.get(11));
-            txtPassword.setText(listaValores.get(12));
-*/
     }
 
     public void cargarListaParametros()
