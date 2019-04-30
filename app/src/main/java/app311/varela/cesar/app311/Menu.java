@@ -24,6 +24,7 @@ public class Menu extends AppCompatActivity {
             }
         });
 
+
         hist = (ImageButton)findViewById(R.id.btnHistorico);
         hist.setOnClickListener(new View.OnClickListener() {
             @Override
