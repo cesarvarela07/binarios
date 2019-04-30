@@ -35,7 +35,7 @@ public class Menu extends AppCompatActivity {
             }
         });
 
-        //ImageButton para Editar perfil
+        //ImageButton para Historial
         ImageButton btnHistorial = (ImageButton) findViewById(R.id.btnHistorico);
         btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
