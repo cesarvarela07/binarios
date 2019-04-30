@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 
 public class Menu extends AppCompatActivity {
 
-    ImageButton pots;
+    ImageButton pots, hist;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,10 +24,26 @@ public class Menu extends AppCompatActivity {
             }
         });
 
+        hist = (ImageButton)findViewById(R.id.btnHistorico);
+        hist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openAcvtividadHistorico();
+            }
+        });
+
     }
 
     public void openAcvtividadPost(){
         Intent intent = new Intent(this, RegistrarIncidencia.class);
         startActivity(intent);
+
     }
+
+    public void openAcvtividadHistorico(){
+        Intent intent = new Intent(this, Historial.class);
+        startActivity(intent);
+
+    }
+
 }
