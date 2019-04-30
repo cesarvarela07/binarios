@@ -37,7 +37,7 @@ public class Menu extends AppCompatActivity {
 
         //ImageButton para Historial
         ImageButton btnHistorial = (ImageButton) findViewById(R.id.btnHistorico);
-        btnEditar.setOnClickListener(new View.OnClickListener() {
+        btnHistorial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(),Historial.class);
