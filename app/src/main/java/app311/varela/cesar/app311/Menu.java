@@ -35,6 +35,7 @@ public class Menu extends AppCompatActivity {
 
     }
 
+
     public void openAcvtividadPost(){
         Intent intent = new Intent(this, RegistrarIncidencia.class);
         startActivity(intent);
